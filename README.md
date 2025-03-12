@@ -1,19 +1,9 @@
 # firestore
 
-A new Flutter project.
+Create the input form page that contains three input fields name, age, and favourite hobby, then add two buttons the first to save data and the second to navigate to the page that views and displays the saved
 
-## Getting Started
+## Pacakages Used
+[cloud firestore](https://pub.dev/packages/cloud_firestore/install)
 
-This project is a starting point for a Flutter application.
-
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
-
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
-
-
-https://pub.dev/packages/cloud_firestore/install
+## Screenshots
+[Screenshots Folder](https://github.com/ShazaAllam2001/firestore/tree/main/output)
