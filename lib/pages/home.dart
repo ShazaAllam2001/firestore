@@ -99,10 +99,6 @@ class _MyHomePageState extends State<MyHomePage> {
                         };
                         db.collection("users").add(data).then(
                           (document) {
-                            nameController.clear();
-                            ageController.clear();
-                            hobbyController.clear();
-
                             SnackBar snackBar = SnackBar(
                               content: Text("User Saved with ID: ${document.id}"),
                               duration: Duration(seconds: 2),
@@ -113,6 +109,10 @@ class _MyHomePageState extends State<MyHomePage> {
                             );
                 
                             ScaffoldMessenger.of(context).showSnackBar(snackBar);
+
+                            nameController.clear();
+                            ageController.clear();
+                            hobbyController.clear();
                           }
                         );
                       }
