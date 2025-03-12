@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firestore/models/user_model.dart';
 import 'package:flutter/material.dart';
 
@@ -10,6 +11,22 @@ class UsersList extends StatefulWidget {
 
 class _UsersListState extends State<UsersList> {
   List<User> users = [];
+
+  getUsers() async {
+    final db = FirebaseFirestore.instance;
+    await db.collection("users").get().then((event) => {
+      for (var doc in event.docs) {
+        users.add(User.fromFirestore(doc))
+      }
+    });
+    print(users);
+  }
+
+  @override
+  void initState() {
+    getUsers();
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {

@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firestore/pages/users_list.dart';
 import 'package:flutter/material.dart';
 
@@ -90,18 +91,30 @@ class _MyHomePageState extends State<MyHomePage> {
                       debugPrint(hobbyController.text);
             
                       if (formKey.currentState!.validate()) {
+                        final db = FirebaseFirestore.instance;
+                        final data = {
+                          "name": nameController.text,
+                          "age": int.parse(ageController.text),
+                          "hobby": hobbyController.text
+                        };
+                        db.collection("users").add(data).then(
+                          (document) {
+                            nameController.clear();
+                            ageController.clear();
+                            hobbyController.clear();
 
-
-                        SnackBar snackBar = SnackBar(
-                          content: Text("User Saved"),
-                          duration: Duration(seconds: 2),
-                          action: SnackBarAction(
-                            label: "ok",
-                            onPressed: () {},
-                          ),
+                            SnackBar snackBar = SnackBar(
+                              content: Text("User Saved with ID: ${document.id}"),
+                              duration: Duration(seconds: 2),
+                              action: SnackBarAction(
+                                label: "ok",
+                                onPressed: () {},
+                              ),
+                            );
+                
+                            ScaffoldMessenger.of(context).showSnackBar(snackBar);
+                          }
                         );
-            
-                        ScaffoldMessenger.of(context).showSnackBar(snackBar);
                       }
                       else {
                         SnackBar snackBar = SnackBar(
@@ -117,23 +130,23 @@ class _MyHomePageState extends State<MyHomePage> {
                       }
                     }, 
                     child: const Text("Save"),
-                  ),
-                  ElevatedButton(
-                    onPressed: () async {
-                      if (formKey.currentState!.validate()) {
-                        Navigator.push(context,
-                          MaterialPageRoute(builder: (context) => UsersList())
-                        );                  
-                      }
-                    }, 
-                    child: const Text("Go To List"),
-                  ),
+                  )
                 ],
               )
             ],
           ),
-        ),
-      )
+        ), 
+      ),
+      floatingActionButton: ElevatedButton(
+        onPressed: () async {
+          if (formKey.currentState!.validate()) {
+            Navigator.push(context,
+              MaterialPageRoute(builder: (context) => UsersList())
+            );                  
+          }
+        }, 
+        child: const Text("Go To List"),
+      ),
     ); 
   }
 }
